@@ -21,6 +21,27 @@ class App extends React.Component {
     filter: ''
   }
 
+  componentDidMount() {
+    console.log('App componentDidMount')
+
+    const contacts = localStorage.getItem('contacts')
+    const parseContacts = JSON.parse(contacts)
+
+    if (parseContacts) {
+      this.setState({ contacts: parseContacts })
+      }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('App componentDidUpdate')
+
+    if (this.state.contacts !== prevState.contacts) {
+      console.log('Обновилось поле contacts')
+
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    }
+  }
+
   formSubmitHandler = data => {
     console.log(data)
 
